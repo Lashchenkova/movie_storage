@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Movie storage</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">Movie storage</a>
+        </div>
+        <div id="navbar" class="collapse navbar-collapse">
+            <form action="/" method="get">
+                <div id='search' style="width: 20%; padding: 0.5%; float: right;">
+                    <div class="input-group">
+                        <input type="text" name="q" class="form-control" placeholder="I'm looking for...">
+                        <span class="input-group-btn">
+                    <button type="submit" class="btn btn-default">
+                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+                    </button>
+                </span>
+                    </div>
+                </div>
+            </form>
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+<div class="container" style="margin-top: 5%">
+    {{ alert }}
+    <h4 style="text-align: right"><a href="javascript:void(0)" id="add_film">
+        <span class='glyphicon glyphicon-plus' aria-hidden='true'></span> Add film</a></h4>
+    <div id="forms" style="display: none;"><!--form for adding films manually-->
+        <div style="float: left; margin-bottom: 4%; width: 40%;">
+            <form method="post" action="/" class="form-horizontal">
+                <div class="form-group">
+                    <label for="title" class="control-label col-sm-4">Title:</label>
+                    <div class="col-sm-8">
+                        <input name="title" type="text" id="title" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="releaseyear" class="control-label col-sm-4">Release Year:</label>
+                    <div class="col-sm-8">
+                        <input name="releaseyear" type="number" id="releaseyear" min="1900" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="stars" class="control-label col-sm-4">Stars:</label>
+                    <div class="col-sm-8">
+                        <input name="stars" type="text" id="stars" class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-sm-4">Format: </label>
+                    <div class="checkbox col-sm-8">
+                        <label class="checkbox-inline"><input type="radio" name="format" value="VHS" required>VHS</label>
+                        <label class="checkbox-inline"><input type="radio" name="format" value="DVD">DVD</label>
+                        <label class="checkbox-inline"><input type="radio" name="format" value="Blu-Ray">Blu-Ray</label>
+                    </div>
+                </div>
+                <div class="col-sm-offset-4 col-sm-8">
+                    <input type="submit" value="Save film" class="btn btn-primary">
+                </div>
+            </form>
+        </div>
+        <div style="float: right; width: 50%; padding-top: 5%; padding-left: 20%; border-left: 1px solid lightgrey"><!--form for adding films by uploading file-->
+            <form action="/" method="post" enctype="multipart/form-data" style=" ">
+                <label class="btn btn-default btn-file">
+                    Upload file <input type="file" style="display: none;" name="file" required>
+                </label><br><br>
+                <input type="submit" value="Upload file" class="btn btn-primary">
+            </form>
+        </div>
+    </div>
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            {{ th }}
+        </tr>
+        </thead>
+        <tbody>
+        {{ content }}
+        </tbody>
+    </table>
+</div><!-- /.container -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script>
+    $( "#add_film" ).click(function () {
+        $( "#forms" ).toggle();
+    });
+    $( ".nav a ").on( "click", function () {
+        $( ".nav" ).find( ".active" ).removeClass( "active" );
+        $( this ).parent().addClass( "active" );
+    });
+</script>
+</body>
+</html>
